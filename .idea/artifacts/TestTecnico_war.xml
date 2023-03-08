@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="TestTecnico:war">
+    <output-path>$PROJECT_DIR$/TestTecnico/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>TestTecnico</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="TestTecnico-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="TestTecnico:war exploded" />
+    </root>
+  </artifact>
+</component>
