@@ -78,4 +78,12 @@ public class FattureController {
 
     }
 
+    //Ritorna il costo della fattura con lo stesso id
+    @GetMapping("/getCostoFatturaById")
+    public ResponseEntity<Double> getCostoFatturaById(Long idFattura) {
+
+        return ResponseEntity.ok(fattureService.getCostoFatturaById(idFattura));
+
+    }
+
 }

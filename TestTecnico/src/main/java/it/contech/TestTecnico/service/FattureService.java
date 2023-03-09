@@ -25,4 +25,6 @@ public interface FattureService {
     List<FatturaDto> deleteFattura(Long idFattura);
 
     FatturaDto editProdottiInFattura(FatturaDto fattura);
+
+    Double getCostoFatturaById(Long idFattura);
 }

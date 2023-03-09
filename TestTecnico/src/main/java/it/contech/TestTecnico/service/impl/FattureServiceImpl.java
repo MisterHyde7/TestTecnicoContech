@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class FattureServiceImpl implements FattureService {
@@ -114,6 +115,7 @@ public class FattureServiceImpl implements FattureService {
 
     }
 
+    //Aggiorna la lista di elementi all'interno della fattura
     @Override
     @Transactional
     public FatturaDto editProdottiInFattura(FatturaDto fattura) {
@@ -134,6 +136,24 @@ public class FattureServiceImpl implements FattureService {
         //Ritorna il prodotto aggiornato
         return getFatturaById(fattura.getId());
 
+    }
+
+    //Ritorna il costo totale della fattura
+    @Override
+    public Double getCostoFatturaById(Long idFattura) {
+
+        //Prendo la fattura selezionata tramite l'id
+        FatturaDto fattura = getFatturaById(idFattura);
+
+        //Creo una variabile di appoggio per la somma dei costi
+        AtomicReference<Double> costofattura = new AtomicReference<>(0.0);
+        fattura.getListaProdotti().forEach(prodotto -> {
+            //Aggiorno il totale per ogni elemento
+            costofattura.updateAndGet(v -> v + prodotto.getPrezzo());
+        });
+
+        //Ritorno il totale
+        return costofattura.get();
     }
 
 }
