@@ -1,0 +1,367 @@
+openapi: 3.0.3
+info:
+  title: Test Tecnico Contech
+  description: End-Point di riferimento per l'utilizzo dell'applicativo in riferimento alla gestione delle fatture e dei prodotti
+  version: 0.0.1
+servers:
+  - url: http://localhost:8087
+tags:
+  - name: fattura
+    description: End-Point per la gestione delle fatture
+  - name: prodotti
+    description: End-Point per la gestione dei prodotti
+paths:
+  /fatture/getAllFatture:
+    get:
+      tags:
+        - fattura
+      summary: Restituisce la lista di tutte le fatture
+      description: Restituisce la lista di tutte le fatture
+      operationId: getAllFatture
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fatture'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fatture'
+  /fatture/getFatturaById:
+    get:
+      tags:
+        - fattura
+      summary: Trova la fattura con l'id corrispondente
+      description: Trova la fattura con l'id corrispondente e la restituisce
+      operationId: getFatturaById
+      parameters:
+        - name: idFattura
+          in: query
+          description: id per la ricerca
+          required: true
+          explode: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Fatture'          
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/Fatture'
+  /fatture/getFatturaByDescrizione:
+    get:
+      tags:
+        - fattura
+      summary: Trova le fatture con la descrizione simile
+      description: Trova le fatture con la descrizione simile e ritorna una lista delle tali
+      operationId: getFatturaByDescrizione
+      parameters:
+        - name: descrizione
+          in: query
+          description: descrizione da cercare
+          required: true
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fatture'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fatture'
+  /fatture/createFattura:
+    post:
+      tags:
+        - fattura
+      summary: Crea una nuova fattura
+      description: Crea una nuova fattura e restituisce la lista di tutte le fatture
+      operationId: createFattura
+      parameters:
+        - name: descrizione
+          in: query
+          description: descrizione della fattura
+          required: true
+          schema:
+            type: string
+        - name: prodotti
+          in: query
+          description: Lista dei prodotti all'interno della fattura
+          schema:
+            type: array
+            items: 
+              $ref: '#/components/schemas/Prodotti'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fatture'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fatture'
+  /fatture/editFattura:
+    post:
+      tags:
+        - fattura
+      summary: Modifica una fattura
+      description: Modifica una fattura e la restituisce aggiornata
+      operationId: editFattura
+      parameters:
+        - name: descrizione
+          in: query
+          description: descrizione della fattura
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Fatture'          
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/Fatture'
+  /fatture/deleteFattura:
+    delete:
+      tags:
+        - fattura
+      summary: Elimina una fattura
+      description: Elimina una fattura e ritorna la lista aggiornata di fatture
+      operationId: deleteFattura
+      parameters:
+        - name: idFattura
+          in: query
+          description: id della fattura da eliminare
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fatture'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fatture'
+  /prodotti/getAllProdotti:
+    get:
+      tags:
+        - prodotti
+      summary: Restituisce la lista di tutti i prodotti
+      description: Restituisce la lista di tutti i prodotti
+      operationId: getAllProdotti
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prodotti'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prodotti'
+  /prodotti/getProdottoById:
+    get:
+      tags:
+        - prodotti
+      summary: Trova la fattura con l'id corrispondente
+      description: Trova la fattura con l'id corrispondente e la restituisce
+      operationId: getProdottoById
+      parameters:
+        - name: idProdotto
+          in: query
+          description: id per la ricerca
+          required: true
+          explode: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Prodotti'          
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/Prodotti'
+  /prodotti/getProdottoByDescrizione:
+    get:
+      tags:
+        - prodotti
+      summary: Trova i prodotti con descrizione simile
+      description: Trova i prodotti con descrizione simile e ritorna una lista dei tali
+      operationId: getProdottoByDescrizione
+      parameters:
+        - name: descrizione
+          in: query
+          description: descrizione da cercare
+          required: true
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prodotti'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prodotti'
+  /prodotti/createProdotto:
+    post:
+      tags:
+        - prodotti
+      summary: Crea un nuovo prodotto
+      description: Crea un nuovo prodotto e restituisce la lista di tutti i prodotti
+      operationId: createProdotto
+      parameters:
+        - name: descrizione
+          in: query
+          description: descrizione del prodotto
+          required: true
+          schema:
+            type: string
+        - name: prezzo
+          in: query
+          description: Prezzo del prodotto
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prodotti'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prodotti'
+  /prodotti/editProdotto:
+    post:
+      tags:
+        - prodotti
+      summary: Modifica un prodotto
+      description: Modifica un prodotto e lo restituisce aggiornato
+      operationId: editProdotto
+      parameters:
+        - name: descrizione
+          in: query
+          description: descrizione del prodotto
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Prodotti'          
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/Prodotti'
+  /prodotti/deleteProdotto:
+    delete:
+      tags:
+        - prodotti
+      summary: Elimina un prodotto
+      description: Elimina un prodotto e ritorna la lista aggiornata di prodotti
+      operationId: deleteProdotto
+      parameters:
+        - name: idProdotto
+          in: query
+          description: id del prodotto da eliminare
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prodotti'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prodotti'
+components:
+  schemas:
+    Prodotti:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: id del prodotto
+          format: int64
+          example: 7
+        descrizione:
+          type: string
+          description: descrizione del prodotto
+          example: frame in carbonio
+    Fatture:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: id della fattura
+          format: int64
+          example: 10
+        descrizione:
+          type: string
+          description: descrizione della fattura
+          example: test descrizione
+        prodotti:
+          type: array
+          description: lista di prodotti nella fattura
+          items:
+            $ref: '#/components/schemas/Prodotti'
