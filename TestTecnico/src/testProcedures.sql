@@ -92,11 +92,15 @@ create procedure testcontech.p_get_fattura(IN in_type_op varchar(50), IN in_id i
                                            IN in_descrizione varchar(255))
 BEGIN
 
-
+    declare CONST_OP_GET_ALL varchar(50) default 'get_all';
     declare CONST_OP_GET_BY_ID varchar(50) default 'get_by_id';
     declare CONST_OP_GET_BY_DESCRIZIONE varchar(50) default 'get_by_descrizione';
 
     case
+        when CONST_OP_GET_ALL = in_type_op
+            then select *
+                 from testcontech.fattura f;
+
         when CONST_OP_GET_BY_ID = in_type_op
             then select *
                  from testcontech.fattura f
@@ -170,11 +174,15 @@ create procedure testcontech.p_get_prodotto(IN in_type_op varchar(50), IN in_id 
                                             IN in_descrizione varchar(255), IN in_prezzo double)
 BEGIN
 
-
+    declare CONST_OP_GET_ALL varchar(50) default 'get_all';
     declare CONST_OP_GET_BY_ID varchar(50) default 'get_by_id';
     declare CONST_OP_GET_BY_DESCRIZIONE varchar(50) default 'get_by_descrizione';
 
     case
+        when CONST_OP_GET_ALL = in_type_op
+            then select *
+                 from testcontech.prodotto f;
+
         when CONST_OP_GET_BY_ID = in_type_op
             then select *
                  from testcontech.prodotto f
